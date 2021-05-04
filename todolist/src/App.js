@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     const todos = localStorage.getItem(STORE_TODO)
-    if(todos)
+    if (todos)
       setTodoList(JSON.parse(todos))
   }, [])
 
@@ -26,13 +26,13 @@ function App() {
   }, [])
 
   const addTodoBtn = useCallback((e) => {
-    setTodoList([{id: v4(), name: textInput, isCompleted: false}, ...todoList])
+    setTodoList([{ id: v4(), name: textInput, isCompleted: false }, ...todoList])
     setTextInput("")
-  },[textInput, todoList])
+  }, [textInput, todoList])
 
   const onCheckBtnClick = useCallback((id) => {
-    setTodoList((prevState) => 
-      prevState.map((todo) => todo.id === id ? {...todo, isCompleted: true} : todo)
+    setTodoList((prevState) =>
+      prevState.map((todo) => todo.id === id ? { ...todo, isCompleted: true } : todo)
     )
   }, [])
 
@@ -41,16 +41,16 @@ function App() {
       <h3>To do list</h3>
       <TextField
         elemAfterInput={
-          <Button 
+          <Button
             isDisabled={!textInput}
             appearance="primary"
             onClick={addTodoBtn}
-          >Add</Button>}     
-        css={{padding: "2px 4px 2px"}}
+          >Add</Button>}
+        css={{ padding: "2px 4px 2px" }}
         value={textInput}
         onChange={textInputOnChange}
       ></TextField>
-      <TodoList todoList={todoList} onCheckBtnClick={onCheckBtnClick}/>
+      <TodoList todoList={todoList} onCheckBtnClick={onCheckBtnClick} />
     </>
   );
 }
