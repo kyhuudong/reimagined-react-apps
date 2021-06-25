@@ -1,0 +1,23 @@
+GET http://localhost:5000/posts
+
+
+###
+POST http://localhost:5000/posts
+Content-Type: application/json
+
+{
+    "title": "Post3",
+    "content": "Vip pro dn 123",
+    "author": "Dong Ky"
+}
+
+###
+PUT http://localhost:5000/posts
+Content-Type: application/json
+
+{
+    "_id": "60d3fa355d449a7a68359779",
+    "title": "Post3 second 222 changed",
+    "content": "Vip pro dn 123",
+    "author": "Dong Ky"
+}
