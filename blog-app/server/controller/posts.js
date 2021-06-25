@@ -1,4 +1,5 @@
 import Post from "../models/Post.js";
+import mongoose from "mongoose";
 
 export const getPosts = async (req, res) => {
   try {
@@ -37,5 +38,24 @@ export const updatePost = async (req, res) => {
     return res
       .status(500)
       .json({ success: false, message: "Cant update post" });
+  }
+};
+export const deletePost = async (req, res) => {
+  // const { _id } = req.body;
+  // const objectId = mongoose.Types.ObjectId(_id);
+  try {
+    const postDelete = await Post.findByIdAndDelete(req.body);
+
+    res.status(200).json({
+      success: true,
+      message: "Delete successfully",
+      postDelete,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Cant delete post",
+      err,
+    });
   }
 };

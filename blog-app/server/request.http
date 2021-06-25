@@ -21,3 +21,11 @@ Content-Type: application/json
     "content": "Vip pro dn 123",
     "author": "Dong Ky"
 }
+
+###
+DELETE http://localhost:5000/posts
+Content-Type: application/json 
+
+{
+    "_id": "60d5f3fe8628a7036353d9a6"
+}

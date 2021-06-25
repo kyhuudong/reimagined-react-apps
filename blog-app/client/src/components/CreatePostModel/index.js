@@ -1,16 +1,81 @@
-import { Modal } from "@material-ui/core";
-import React from "react";
-import { useSelector } from "react-redux";
+import { Button, Modal, TextareaAutosize, TextField } from "@material-ui/core";
+import React, { useCallback, useState } from "react";
+import FileBase64 from "react-file-base64";
+import { useDispatch, useSelector } from "react-redux";
 import { modalState$ } from "../../redux/selectors";
+import useStyles from "./styles";
+import { hideModal, createPost } from "../../redux/actions";
 
 const CreatePostModel = () => {
-  const { isShow } = useSelector(modalState$);
+  const [data, setData] = useState({
+    title: "",
+    content: "",
+    attachment: "",
+  });
 
-  console.log({ isShow });
+  const { isShow } = useSelector(modalState$);
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const onClose = useCallback(() => {
+    dispatch(hideModal());
+    setData({ title: "", content: "", attachment: "" });
+  }, [dispatch]);
+
+  const onChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = useCallback(
+    (e) => {
+      dispatch(createPost.createPostRequest(data));
+      onClose();
+    },
+    [data, dispatch, onClose]
+  );
 
   return (
-    <Modal open={isShow}>
-      <h1>this is body</h1>
+    <Modal open={isShow} onClose={onClose}>
+      <div className={classes.paper} id="simple-modal-title">
+        <h2>Create New Post</h2>
+        <form noValidate autoComplete="off" className={classes.form}>
+          <TextField
+            className={classes.title}
+            required
+            label="Title"
+            value={data.title}
+            name="title"
+            onChange={(e) => onChange(e)}
+          />
+          <TextareaAutosize
+            className={classes.textarea}
+            rowsMin={10}
+            rowsMax={15}
+            placeholder="Content..."
+            value={data.content}
+            name="content"
+            onChange={(e) => onChange(e)}
+          />
+          <FileBase64
+            accept="image/*"
+            multiple={false}
+            type="file"
+            value={data.attachment}
+            onDone={({ base64 }) => setData({ ...data, attachment: base64 })}
+          />
+          <div className={classes.footer}>
+            <Button
+              variant="contained"
+              color="primary"
+              component="span"
+              fullWidth
+              onClick={onSubmit}
+            >
+              Create
+            </Button>
+          </div>
+        </form>
+      </div>
     </Modal>
   );
 };

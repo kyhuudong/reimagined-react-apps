@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   Avatar,
   Card,
@@ -12,8 +12,19 @@ import {
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { deletePost } from "../../redux/actions";
 
 export default function Post({ post }) {
+  const dispatch = useDispatch();
+
+  const onDelete = useCallback(
+    (id) => {
+      dispatch(deletePost.deletePostRequest(id));
+    },
+    [dispatch]
+  );
+
   return (
     <Card>
       <CardHeader
@@ -22,7 +33,7 @@ export default function Post({ post }) {
         subheader={moment(post.updatedAt).format("HH:MM MM DD, YYYY")}
         action={
           <IconButton>
-            <MoreVertIcon />
+            <MoreVertIcon onClick={() => onDelete(post._id)} />
           </IconButton>
         }
       />
