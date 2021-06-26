@@ -27,5 +27,9 @@ DELETE http://localhost:5000/posts
 Content-Type: application/json 
 
 {
-    "_id": "60d5f3fe8628a7036353d9a6"
+    "_id": "60d687749789501d6fdf78e9"
 }
+
+
+###
+DELETE http://localhost:5000/posts/all

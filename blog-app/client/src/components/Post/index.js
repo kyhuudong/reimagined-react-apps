@@ -20,7 +20,7 @@ export default function Post({ post }) {
 
   const onDelete = useCallback(
     (id) => {
-      dispatch(deletePost.deletePostRequest(id));
+      dispatch(deletePost.deletePostRequest({ _id: id }));
     },
     [dispatch]
   );

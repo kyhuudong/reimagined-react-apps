@@ -26,13 +26,10 @@ const CreatePostModel = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = useCallback(
-    (e) => {
-      dispatch(createPost.createPostRequest(data));
-      onClose();
-    },
-    [data, dispatch, onClose]
-  );
+  const onSubmit = useCallback(() => {
+    dispatch(createPost.createPostRequest(data));
+    onClose();
+  }, [data, dispatch, onClose]);
 
   return (
     <Modal open={isShow} onClose={onClose}>

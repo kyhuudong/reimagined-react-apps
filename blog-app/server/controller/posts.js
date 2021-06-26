@@ -41,8 +41,6 @@ export const updatePost = async (req, res) => {
   }
 };
 export const deletePost = async (req, res) => {
-  // const { _id } = req.body;
-  // const objectId = mongoose.Types.ObjectId(_id);
   try {
     const postDelete = await Post.findByIdAndDelete(req.body);
 
@@ -50,6 +48,23 @@ export const deletePost = async (req, res) => {
       success: true,
       message: "Delete successfully",
       postDelete,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Cant delete post",
+      err,
+      req: req.body,
+    });
+  }
+};
+export const deletePostAll = async (req, res) => {
+  try {
+    const postDelete = await Post.remove({});
+
+    res.status(200).json({
+      success: true,
+      message: "Delete all successfully",
     });
   } catch (err) {
     res.status(500).json({

@@ -7,8 +7,8 @@ import { postsState$ } from "../../redux/selectors";
 
 const PostList = () => {
   const dispatch = useDispatch();
-  const postsState = useSelector(postsState$);
-  const { posts } = postsState;
+  const posts = useSelector(postsState$);
+
   console.log("Posts --", posts);
 
   useEffect(() => {
