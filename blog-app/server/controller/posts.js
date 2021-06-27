@@ -1,5 +1,4 @@
 import Post from "../models/Post.js";
-import mongoose from "mongoose";
 
 export const getPosts = async (req, res) => {
   try {
@@ -58,6 +57,7 @@ export const deletePost = async (req, res) => {
     });
   }
 };
+
 export const deletePostAll = async (req, res) => {
   try {
     const postDelete = await Post.remove({});
@@ -71,6 +71,7 @@ export const deletePostAll = async (req, res) => {
       success: false,
       message: "Cant delete post",
       err,
+      id: req.body._id,
     });
   }
 };
