@@ -14,9 +14,11 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { deletePost } from "../../redux/actions";
+import useStyle from "./styles";
 
 export default function Post({ post }) {
   const dispatch = useDispatch();
+  const classes = useStyle();
 
   const onDelete = useCallback(
     (id) => {
@@ -37,7 +39,11 @@ export default function Post({ post }) {
           </IconButton>
         }
       />
-      <CardMedia image="" title="Title" />
+      <CardMedia
+        image={post.attachment}
+        title="Title"
+        className={classes.media}
+      />
       <CardContent>
         <Typography variant="h5" color="textPrimary">
           {post.title}
