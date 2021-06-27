@@ -12,14 +12,14 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5000/posts
+PUT http://localhost:5000/posts/update
 Content-Type: application/json
 
 {
-    "_id": "60d3fa355d449a7a68359779",
-    "title": "Post3 second 222 changed",
-    "content": "Vip pro dn 123",
-    "author": "Dong Ky"
+   "_id": "60d74a64c58c6501b4d6ba17",
+   "title": "1ba",
+   "content": "1ba",
+   "attachment": "" 
 }
 
 ###

@@ -4,13 +4,13 @@ import FileBase64 from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 import { modalState$ } from "../../redux/selectors";
 import useStyles from "./styles";
-import { hideModal, createPost } from "../../redux/actions";
+import { hideModal, createPost, updatePost } from "../../redux/actions";
 
-const CreatePostModel = () => {
+const CreatePostModel = ({ isOpen, post, setIsOpen, editMode }) => {
   const [data, setData] = useState({
-    title: "",
-    content: "",
-    attachment: "",
+    title: post?.title || "",
+    content: post?.content || "",
+    attachment: post?.attachment || "",
   });
 
   const { isShow } = useSelector(modalState$);
@@ -31,10 +31,18 @@ const CreatePostModel = () => {
     onClose();
   }, [data, dispatch, onClose]);
 
+  const onEdit = useCallback(() => {
+    dispatch(updatePost.updatePostRequest(data));
+    onClose();
+  }, [data, dispatch, onClose]);
+
   return (
-    <Modal open={isShow} onClose={onClose}>
+    <Modal
+      open={isOpen ? isOpen : isShow}
+      onClose={setIsOpen ? () => setIsOpen(!isOpen) : onClose}
+    >
       <div className={classes.paper} id="simple-modal-title">
-        <h2>Create New Post</h2>
+        <h2>{editMode || "Create New Post"}</h2>
         <form noValidate autoComplete="off" className={classes.form}>
           <TextField
             className={classes.title}
@@ -66,9 +74,9 @@ const CreatePostModel = () => {
               color="primary"
               component="span"
               fullWidth
-              onClick={onSubmit}
+              onClick={editMode ? onEdit : onSubmit}
             >
-              Create
+              {editMode ? "Edit" : "Create"}
             </Button>
           </div>
         </form>
