@@ -19,10 +19,9 @@ const CreatePostModel = ({ isOpen, post, setIsOpen, editMode }) => {
 
   const onClose = useCallback(() => {
     dispatch(hideModal());
-    if (!editMode) {
-      setData({ title: "", content: "", attachment: "" });
-    }
-    setIsOpen(false);
+    if (editMode) {
+      setIsOpen(false);
+    } else setData({ title: "", content: "", attachment: "" });
   }, [dispatch]);
 
   const onChange = (e) => {
