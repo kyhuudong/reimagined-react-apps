@@ -32,7 +32,14 @@ const CreatePostModel = ({ isOpen, post, setIsOpen, editMode }) => {
   }, [data, dispatch, onClose]);
 
   const onEdit = useCallback(() => {
-    dispatch(updatePost.updatePostRequest(data));
+    dispatch(
+      updatePost.updatePostRequest({
+        _id: post?._id,
+        title: data.title,
+        content: data.content,
+        attachment: data.attachment,
+      })
+    );
     onClose();
   }, [data, dispatch, onClose]);
 

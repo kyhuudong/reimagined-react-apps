@@ -39,8 +39,8 @@ function* deletePostSaga(action) {
   try {
     console.log("_id: ", action.payload);
     const post = yield call(api.deletePost, action.payload);
-    console.log("Post - Delete: ", post);
-    yield put(actions.deletePost.deletePostSuccess(post));
+    console.log("Post - Delete: ", post.data);
+    yield put(actions.deletePost.deletePostSuccess(post.data));
   } catch (err) {
     console.error(err);
     yield put(actions.deletePost.deletePostFailure(err));

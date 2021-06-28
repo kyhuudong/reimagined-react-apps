@@ -26,13 +26,16 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
-    const postUpdate = await Post.findByIdAndUpdate(
-      { _id: req.body._id },
-      req.body,
-      { new: true }
-    );
+    const post = await Post.findByIdAndUpdate(req.body._id, req.body, {
+      new: true,
+    });
 
-    return res.json({ success: true, message: "Updated succesfully" });
+    return res.json({
+      success: true,
+      message: "Updated succesfully",
+      post,
+      req: req.body,
+    });
   } catch (err) {
     return res
       .status(500)
@@ -41,12 +44,13 @@ export const updatePost = async (req, res) => {
 };
 export const deletePost = async (req, res) => {
   try {
-    const postDelete = await Post.findByIdAndDelete(req.body);
-
+    const post = await Post.findOneAndDelete(req.body, {
+      returnOriginal: false,
+    });
     res.status(200).json({
       success: true,
       message: "Delete successfully",
-      postDelete,
+      post,
     });
   } catch (err) {
     res.status(500).json({
