@@ -26,6 +26,7 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
+<<<<<<< HEAD
     const post= await Post.findByIdAndUpdate(
       { _id: req.body._id },
       req.body,
@@ -33,6 +34,18 @@ export const updatePost = async (req, res) => {
     );
 
     return res.json({ success: true, message: "Updated succesfully", post });
+=======
+    const post = await Post.findByIdAndUpdate(req.body._id, req.body, {
+      new: true,
+    });
+
+    return res.json({
+      success: true,
+      message: "Updated succesfully",
+      post,
+      req: req.body,
+    });
+>>>>>>> 83bde349304e418d0aa9fce85be117c970d2ac99
   } catch (err) {
     return res
       .status(500)
@@ -41,8 +54,14 @@ export const updatePost = async (req, res) => {
 };
 export const deletePost = async (req, res) => {
   try {
+<<<<<<< HEAD
     const post= await Post.findByIdAndDelete(req.body);
 
+=======
+    const post = await Post.findOneAndDelete(req.body, {
+      returnOriginal: false,
+    });
+>>>>>>> 83bde349304e418d0aa9fce85be117c970d2ac99
     res.status(200).json({
       success: true,
       message: "Delete successfully",

@@ -39,11 +39,10 @@ export default function postsReducers(state = INIT_STATE.posts, action) {
         ),
       };
     case getType(deletePost.deletePostSuccess()):
-      console.log("action.playload: ", action.payload.post)
       return {
         ...state,
-        data: state.data.filter((post) => post._id !== action.payload.post._id)
-      }
+        data: state.data.filter((post) => post._id !== action.payload.post._id),
+      };
     default:
       return state;
   }
