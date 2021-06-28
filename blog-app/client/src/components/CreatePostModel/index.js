@@ -32,14 +32,16 @@ const CreatePostModel = ({ isOpen, post, setIsOpen, editMode }) => {
   }, [data, dispatch, onClose]);
 
   const onEdit = useCallback(() => {
+    console.log("EDIT")
     dispatch(updatePost.updatePostRequest(data));
-    onClose();
+    onClose();   
   }, [data, dispatch, onClose]);
+
 
   return (
     <Modal
       open={isOpen ? isOpen : isShow}
-      onClose={setIsOpen ? () => setIsOpen(!isOpen) : onClose}
+      onClose={setIsOpen ? () => setIsOpen(false) : onClose}
     >
       <div className={classes.paper} id="simple-modal-title">
         <h2>{editMode || "Create New Post"}</h2>
