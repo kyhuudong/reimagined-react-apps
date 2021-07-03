@@ -1,4 +1,4 @@
-npm build
+npm run build
 
 cd build
 
