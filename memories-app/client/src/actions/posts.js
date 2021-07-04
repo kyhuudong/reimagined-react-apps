@@ -8,6 +8,7 @@ import {
   START_LOADING,
   END_LOADING,
   FETCH_POST,
+  COMMENT,
 } from "../constant/actionTypes";
 
 export const getPost = (id) => async (dispatch) => {
@@ -41,14 +42,11 @@ export const getPosts = (page) => async (dispatch) => {
 };
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
-  console.log("VAO SEARCH ROI");
   try {
     dispatch({ type: START_LOADING });
     const {
       data: { data },
     } = await api.fetchPostsBySearch(searchQuery);
-
-    console.log("Search items: ", data);
 
     dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
     dispatch({ type: END_LOADING });
@@ -93,6 +91,17 @@ export const likePost = (id) => async (dispatch) => {
     const { data } = await api.likePost(id);
 
     dispatch({ type: UPDATE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const commentPost = (finalComment, id) => async (dispatch) => {
+  try {
+    const { data } = await api.commentPost(finalComment, id);
+    dispatch({ type: COMMENT, payload: data });
+
+    return data.comments;
   } catch (error) {
     console.log(error);
   }

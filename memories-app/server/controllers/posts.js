@@ -107,9 +107,6 @@ export const likePost = async (req, res) => {
 
 export const getPostsBySearch = async (req, res) => {
   const { searchQuery, tags } = req.query;
-
-  console.log(req.query);
-
   try {
     const title = new RegExp(searchQuery, "i");
 
@@ -118,6 +115,25 @@ export const getPostsBySearch = async (req, res) => {
     });
 
     res.json({ data: posts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const commentPost = async (req, res) => {
+  const { id } = req.params;
+  const { finalComment } = req.body;
+
+  try {
+    const post = await PostMessage.findById(id);
+
+    post.comments.push(finalComment);
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
+      new: true,
+    });
+
+    res.json(updatedPost);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

@@ -29,6 +29,8 @@ const Navbar = () => {
     dispatch({ type: LOGOUT });
 
     history.push("/auth");
+
+    localStorage.removeItem("profile");
     setUser(null);
   };
 

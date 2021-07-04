@@ -32,7 +32,7 @@ export default makeStyles({
     top: "20px",
     right: "20px",
     color: "white",
-    zIndex: "99999",
+    zIndex: "999",
   },
   grid: {
     display: "flex",
@@ -53,8 +53,6 @@ export default makeStyles({
   cardAction: {
     display: "block",
     textAlign: "initial",
-  },
-  updateBtn: {
-    zIndex: "99999999999 !important",
+    zIndex: "1",
   },
 });

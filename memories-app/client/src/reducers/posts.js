@@ -8,6 +8,7 @@ import {
   START_LOADING,
   END_LOADING,
   FETCH_POST,
+  COMMENT,
 } from "../constant/actionTypes";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -42,9 +43,21 @@ export default (state = { posts: [], isLoading: true }, action) => {
       };
 
     case DELETE:
-      return state.posts.filter((post) => post._id !== action.payload);
+      console.log("action payload: ", action.payload);
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post._id !== action.payload),
+      };
 
     case LIKE:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        ),
+      };
+
+    case COMMENT:
       return {
         ...state,
         posts: state.posts.map((post) =>
